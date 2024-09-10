@@ -7,7 +7,7 @@ import { useUpdateSetting } from "./useUpdateSetting";
 
 function UpdateSettingsForm() {
   const {
-    isPending,
+    isLoading,
     settings: {
       minBookingLength,
       maxBookingLength,
@@ -15,10 +15,9 @@ function UpdateSettingsForm() {
       breakfastPrice,
     } = {},
   } = useSettings();
-
   const { isUpdating, updateSetting } = useUpdateSetting();
 
-  if (isPending) return <Spinner />;
+  if (isLoading) return <Spinner />;
 
   function handleUpdate(e, field) {
     const { value } = e.target;
