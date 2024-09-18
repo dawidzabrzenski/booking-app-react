@@ -11,10 +11,10 @@ export async function getBookings({ filter, sortBy, page }) {
     );
 
   // FILTER
-  if (filter !== null) query = query[filter.method](filter.field, filter.value);
+  if (filter) query = query[filter.method || "eq"](filter.field, filter.value);
 
   // SORT
-  if (sortBy !== null)
+  if (sortBy)
     query = query.order(sortBy.field, {
       ascending: sortBy.direction === "asc",
     });
@@ -23,7 +23,6 @@ export async function getBookings({ filter, sortBy, page }) {
   if (page) {
     const from = (page - 1) * (PAGE_SIZE - 1);
     const to = from + PAGE_SIZE - 1;
-
     query = query.range(from, to);
   }
 
